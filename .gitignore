@@ -4,5 +4,6 @@ backend/mysql
 frontend/node_modules
 
 
-srv_auth/node_modules
-srv_data/node_modules
+backend/srv_auth/node_modules
+backend/srv_data/node_modules
+backend/srv_mail/node_modules
