@@ -1,0 +1,13 @@
+.ct_list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.ct_list figure{
+    width:30%;
+}
+
+.ct_list figure img{
+    width:100%;
+}

@@ -1,0 +1,39 @@
+#admin{
+    display: flex;
+}
+
+.AHeader{
+    text-align: center;
+    line-height: 50px;
+    background-color: grey;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sideMenu{
+    flex-grow: 1;
+    border-right: solid 1px grey;
+}
+
+#admin_body{
+    flex-grow: 6;
+    padding-left: 15px;
+}
+/********************************/
+.sideMenu ul{
+    list-style: none;
+}
+
+.sideMenu ul li a{
+    text-decoration: none;
+    color: black;
+}
+
+/********************************/
+.del_btn{
+    color: red;
+    font-family: verdana;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
