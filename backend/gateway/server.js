@@ -18,7 +18,7 @@ const options = {
       '^/api/marcel': '/users', // rewrite path
       '^/api/roger': '/cocktails', // remove base path
     }
-  };
+  }
 const proxy = createProxyMiddleware(options);
 
 /*** ROUTAGE */

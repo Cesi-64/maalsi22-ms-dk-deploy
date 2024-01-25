@@ -1,2 +1,5 @@
 backend/gateway/node_modules
 frontend/node_modules
+
+srv_auth/node_modules
+srv_data/node_modules
