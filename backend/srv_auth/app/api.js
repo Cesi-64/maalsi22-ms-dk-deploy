@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true}))
 const auth_router = require('./routes/auth')
 
 /*** MAIN ROUTER */
-app.get('/', (req, res) => res.send(`I'm online. All is OK !  `))
+app.get('/', (req, res) => res.send(`I'm online. All is OK !  [AUTH]`))
 
 app.use('/auth', auth_router)
 

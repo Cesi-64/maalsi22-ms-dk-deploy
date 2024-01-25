@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  bdd:
+    container_name: maalsi22-ms-bdd
+    image: mariadb:latest
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: leplanterdebaton
+      MYSQL_USER: cesi
+      MYSQL_PASSWORD: isec
+    ports:
+      - 3306:3306
+  
+  adminer:
+    container_name: maalsi22-ms-adminer
+    image: adminer
+    ports:
+      - 8080:8080

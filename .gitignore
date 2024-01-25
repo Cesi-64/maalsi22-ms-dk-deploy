@@ -1,5 +1,8 @@
 backend/gateway/node_modules
+backend/mysql
+
 frontend/node_modules
+
 
 srv_auth/node_modules
 srv_data/node_modules
