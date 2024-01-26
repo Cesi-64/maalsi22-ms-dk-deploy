@@ -10,30 +10,38 @@ const app = express()
 app.use(cors())
 
 /*** PARAM GATEWAY */
-const options = {
-    target: 'http://flp-api.francecentral.cloudapp.azure.com', // target host
-    //changeOrigin: true, // needed for virtual hosted sites
-    //ws: true, // proxy websockets
-    pathRewrite: {
-      '^/api/marcel': '/users', // rewrite path
-      '^/api/roger': '/cocktails', // remove base path
-    }
-  }
-const proxy = createProxyMiddleware(options);
+const proxyAuth = createProxyMiddleware({
+  target: process.env.SRV_AUTH+':'+process.env.SRV_AP,
+  pathRewrite: { '^/apiv1/auth': '/auth/login' }
+})
+const proxyData = createProxyMiddleware({
+  target: process.env.SRV_DATA+':'+process.env.SRV_DP,
+  pathRewrite: { '^/apiv1/data': '' }
+})
+const proxyMail = createProxyMiddleware({
+  target: process.env.SRV_MAIL+':'+process.env.SRV_MP,
+  pathRewrite: { '^/apiv1/mail': '/mail' }
+})
+
+/**************************************/
+/*** Middleware de log pour le router */
+app.use( (req, res, next) => {
+  res.once('finish', () => {
+      const event = new Date()
+      console.log(`[${req.method}] [${req.originalUrl}] [${res.statusCode}] -- `, event.toLocaleString())
+  })
+  
+  next()
+})
 
 /*** ROUTAGE */
 app.get('/', (req, res) => res.send('JOIE GAITE BONHEUR'))
 
-// app.use('/marcel', createProxyMiddleware({
-//     target: 'http://flp-api.francecentral.cloudapp.azure.com',
-//     pathRewrite: {
-//         '^/marcel': '/users'
-//     }
-// }))
+app.use('/apiv1', proxyAuth)
+app.use('/apiv2/data', proxyData)
+app.use('/apiv3/mail', proxyMail)
 
-app.use('/api', proxy)
-
-app.all('*', (req, res) => res.status(501).send('MAIS BIEN SUR MON GROS MALIN'))
+app.all('*', (req, res) => res.status(501).send('MAIS BIEN SUR MON GROS MALIN.'))
 
 /*** START GATEWAY */
 app.listen(12000, () => {

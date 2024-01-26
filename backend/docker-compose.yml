@@ -11,11 +11,54 @@ services:
       MYSQL_DATABASE: leplanterdebaton
       MYSQL_USER: cesi
       MYSQL_PASSWORD: isec
-    ports:
-      - 3306:3306
   
   adminer:
     container_name: maalsi22-ms-adminer
     image: adminer
     ports:
       - 8080:8080
+
+  srvauth:
+    container_name: maalsi22_srv_auth
+    depends_on:
+      - bdd
+    build: ./srv_auth
+    environment:
+      DB_HOST: bdd
+    ports:
+      - 9001:9001
+    restart: always
+
+  srvdata:
+    container_name: maalsi22_srv_data
+    depends_on:
+      - bdd
+    build: ./srv_data
+    environment:
+      DB_HOST: bdd
+    restart: always
+
+  srvmail:
+    container_name: maalsi22_srv_mail
+    depends_on:
+      - bdd
+    build: ./srv_mail
+    restart: always
+
+  gateway:
+    container_name: maalsi22_gateway
+    depends_on:
+     - srvauth
+     - srvdata
+     - srvmail
+    build: ./gateway
+    ports:
+      - 12000:12000
+    environment:
+      SRV_AUTH: srvauth
+      SRV_AP: 9001
+      SRV_DATA: srvdata
+      SRV_DP: 9002
+      SRV_MAIL: srvmail
+      SRV_MP: 9003
+    restart: always
