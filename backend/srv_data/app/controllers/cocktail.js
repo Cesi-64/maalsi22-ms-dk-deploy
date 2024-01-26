@@ -54,7 +54,7 @@ exports.addCocktail = async (req, res) => {
 
         // Céation du cocktail
         cocktail = await Cocktail.create(req.body)
-        return res.json({ message: 'Cocktail Created', data: cocktail })
+        return res.status(201).json({ message: 'Cocktail Created', data: cocktail })
     }catch(err){
         return res.status(500).json({ message: 'Database Error', error: err })
     }

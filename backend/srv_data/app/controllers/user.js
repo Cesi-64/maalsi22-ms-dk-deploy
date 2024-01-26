@@ -57,7 +57,7 @@ exports.addUser = async (req, res) => {
 
         // Céation de l'utilisateur
         let userc = await User.create(req.body)
-        return res.json({ message: 'User Created', data: userc })
+        return res.status(201).json({ message: 'User Created', data: userc })
 
     }catch(err){
         if(err.name == 'SequelizeDatabaseError'){

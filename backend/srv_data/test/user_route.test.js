@@ -26,10 +26,26 @@ describe('USER ROUTER', () => {
                 .put('/users')
                 .send({
                     nom: 'marcel',
-                    prenom: 'roger'
+                    prenom: 'roger',
+                    pseudo: 'test',
+                    email: 'test@test.com',
+                    password: 'motdepasse'
                 })
             expect(response.status).toBe(201)
             userId = response.body.data.id
+        })
+
+        it('Should return 409 /=> add same user', async () => {
+            const response = await request(app)
+                .put('/users')
+                .send({
+                    nom: 'marcel',
+                    prenom: 'roger',
+                    pseudo: 'test',
+                    email: 'test@test.com',
+                    password: 'motdepasse'
+                })
+            expect(response.status).toBe(409)
         })
     })  
 
