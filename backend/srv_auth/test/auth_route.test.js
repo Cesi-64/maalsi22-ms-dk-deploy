@@ -28,7 +28,7 @@ describe('USER ROUTER', () => {
             const response = await request(app)
                 .post('/auth/login')
                 .send({
-                    email: 'roger@roger.com',
+                    email: 'roger@marcel.com',
                     password: ''
                 })
 
