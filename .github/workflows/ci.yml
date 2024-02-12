@@ -38,7 +38,7 @@ jobs:
           - name: Check database connection
             run: |
               sudo apt-get install -y mysql-client
-              mysql --host 127.0.0.1 --port 3306 -u root -ptoor -e "SHOW DATABASES"
+              mysql --host 127.0.0.1 --port 3306 -u root -ptoor -e "SHOW DATABASES"   
 
           - name: Setup node
             uses: actions/setup-node@v3
@@ -49,6 +49,11 @@ jobs:
 
           - name: Init database
             run: npm run test:file init_bdd
+
+          - name: Add base User
+            run: |
+              mysql -u root -ptoor test --host 127.0.0.1 --port 3306 < "INSERT INTO `Users` VALUES (1,'roger','marcel','Le fou','roger@marcel.com','$2b$10$dQnCYjsOMEbsQXVaX8UnHONTTzqJXFcMElG89lP1zce6m0TW5vT5q','2023-11-14 14:19:01','2023-11-17 15:30:10',NULL);""
+           
 
           - name: Run Main Test
             run: npm run test:file main_route 
