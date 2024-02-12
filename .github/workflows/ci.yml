@@ -50,7 +50,7 @@ jobs:
           - name: Init database
             run: npm run test:file init_bdd
 
-          - name: SImpe database test
+          - name: Add Database User
             run: |
               mysql -u root -ptoor --host 127.0.0.1 --port 3306 --database test < insert_bdd_user.sql
 
@@ -102,6 +102,10 @@ jobs:
 
         - name: Init database
           run: npm run test:file init_bdd
+
+        - name: Add Database User
+          run: |
+            mysql -u root -ptoor --host 127.0.0.1 --port 3306 --database test < insert_bdd_user.sql
 
         - name: Run Main Test
           run: npm run test:file main_route 
