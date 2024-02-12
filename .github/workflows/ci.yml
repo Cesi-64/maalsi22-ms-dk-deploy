@@ -49,7 +49,10 @@ jobs:
 
           - name: Init database
             id: intbdd
-            run: npm run test:file init_bdd
+            run: |
+              npm run test:file init_bdd
+              echo 'success'
+
 
           - name: Add base User
             if: steps.initbdd.outcome == 'success'
