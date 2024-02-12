@@ -52,7 +52,7 @@ jobs:
 
           - name: Add base User
             run: |
-              mysql -u root -ptoor test --host 127.0.0.1 --port 3306 < "INSERT INTO `Users` VALUES (1,'roger','marcel','Le fou','roger@marcel.com','$2b$10$dQnCYjsOMEbsQXVaX8UnHONTTzqJXFcMElG89lP1zce6m0TW5vT5q','2023-11-14 14:19:01','2023-11-17 15:30:10',NULL);"
+              mysql -u root -ptoor test --host 127.0.0.1 --port 3306 -e "INSERT INTO `Users` VALUES (1,'roger','marcel','Le fou','roger@marcel.com','$2b$10$dQnCYjsOMEbsQXVaX8UnHONTTzqJXFcMElG89lP1zce6m0TW5vT5q','2023-11-14 14:19:01','2023-11-17 15:30:10',NULL);"
            
 
           - name: Run Main Test
