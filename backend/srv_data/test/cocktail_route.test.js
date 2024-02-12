@@ -2,7 +2,7 @@ const request = require('supertest')
 const DB = require('../app/db.config')
 const app = require('../app/api')
 
-let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tIjoicm9nZXIiLCJwcmVub20iOiJtYXJjZWwiLCJlbWFpbCI6InJvZ2VyQG1hcmNlbC5jb20iLCJpYXQiOjE3MDYyNjA0MjMsImV4cCI6MTcwOTg2MDQyM30.T4EF7ZR8JVKfa2W4JKRGJO1aE5N3jOs83c14wN0IDME'
+let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tIjoicm9nZXIiLCJwcmVub20iOiJtYXJjZWwiLCJlbWFpbCI6InJvZ2VyQG1hcmNlbC5jb20iLCJpYXQiOjE3MDc3MzQ3NTYsImV4cCI6MTcwNzczODM1Nn0.s_i2DhOnMuTlvB-9qi_jfuiZDgJKwQdABhvHgHyijXE'
 let cocktailId
 
 describe('USER ROUTER', () => {  
