@@ -48,16 +48,11 @@ jobs:
             run: npm i
 
           - name: Init database
-            id: intbdd
-            run: |
-              npm run test:file init_bdd
-              echo 'success'
-
+            run: npm run test:file init_bdd
 
           - name: Add base User
-            if: steps.initbdd.outcome == 'success'
             run: |              
-              mysql -u root -ptoor --database=test --host 127.0.0.1 --port 3306 -e "INSERT INTO `Users` VALUES (1,'roger','marcel','Le fou','roger@marcel.com','$2b$10$dQnCYjsOMEbsQXVaX8UnHONTTzqJXFcMElG89lP1zce6m0TW5vT5q','2023-11-14 14:19:01','2023-11-17 15:30:10',NULL);"
+              mysql -u root -ptoor --database=test --host 127.0.0.1 --port 3306 -e "INSERT INTO `Users` VALUES ('roger','marcel','Le fou','roger@marcel.com','$2b$10$dQnCYjsOMEbsQXVaX8UnHONTTzqJXFcMElG89lP1zce6m0TW5vT5q');"
            
 
           - name: Run Main Test
@@ -65,3 +60,78 @@ jobs:
 
           - name: Run Auth Test
             run: npm run test:file auth_route 
+
+    backendtest-srv_data:
+      runs-on: ubuntu-latest
+      defaults:
+        run:
+          working-directory: backend/srv_data
+
+      services:
+        mariadb:
+            image: mariadb:latest
+            env:
+                MARIADB_ROOT_PASSWORD: toor
+                MARIADB_DATABASE: test
+                MARIADB_USER: test
+                MARIADB_PASSWORD: test
+            ports:
+                - 3306:3306
+            options: --health-cmd="healthcheck.sh --connect --innodb_initialized" --health-interval=10s --health-timeout=5s --health-retries=3
+
+      env:
+        DB_HOST: 127.0.0.1
+        DB_NAME: test
+        DB_USER: test
+        DB_PASS: test
+
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+
+        - name: Check database connection
+          run: |
+            sudo apt-get install -y mysql-client
+            mysql --host 127.0.0.1 --port 3306 -u root -ptoor -e "SHOW DATABASES"   
+
+        - name: Setup node
+          uses: actions/setup-node@v3
+          with:
+            node-version: 18.x
+        - name: Install Dependencies
+          run: npm i
+
+        - name: Init database
+          run: npm run test:file init_bdd
+
+        - name: Run Main Test
+          run: npm run test:file main_route 
+
+        - name: Run Auth Test
+          run: npm run test:file user_route 
+  
+        - name: Run Auth Test
+          run: npm run test:file cocktail_route
+  
+    backendtest-srv_mail:
+      runs-on: ubuntu-latest
+      defaults:
+        run:
+          working-directory: backend/srv_mail
+
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+
+        - name: Setup node
+          uses: actions/setup-node@v3
+          with:
+            node-version: 18.x
+        - name: Install Dependencies
+          run: npm i
+
+        - name: Run Main Test
+          run: npm run test:file main_route 
+
+        - name: Run Auth Test
+          run: npm run test:file mail_route 
