@@ -105,7 +105,7 @@ jobs:
 
         - name: Add Database User
           run: |
-            mysql -u root -ptoor --host 127.0.0.1 --port 3306 --database test < insert_bdd_user.sql
+            mysql -u root -ptoor --host 127.0.0.1 --port 3306 --database test < ${{ secrets.MARCEL_SEEDER }}
 
         - name: Run Main Test
           run: npm run test:file main_route 
